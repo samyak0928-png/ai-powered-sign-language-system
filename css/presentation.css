@@ -1,0 +1,243 @@
+/* ==========================================================================
+   AI-POWERED FORWARD DIRECTIONAL SIGN LANGUAGE SYSTEM (AI-FSLS)
+   Presentation Mode (Slide Deck) & Judge Fast-Track Modal Styles
+   ========================================================================== */
+
+/* Fullscreen Presentation Modal */
+.presentation-fullscreen-modal {
+  position: fixed;
+  inset: 0;
+  background: #050a14;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+.pres-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(7, 13, 24, 0.9);
+  backdrop-filter: blur(12px);
+}
+
+.pres-brand-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pres-shortcut-hints {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.key-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-medium);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* Presentation Slides Canvas */
+.pres-slides-viewport {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  position: relative;
+  overflow-y: auto;
+}
+
+.pres-slide {
+  max-width: 1050px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: slideFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.pres-slide-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pres-slide-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.pres-slide-title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.pres-slide-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.pres-highlight-box {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pres-slide-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pres-slide-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.pres-bullet-icon {
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
+
+/* Presentation Navigation Bar */
+.pres-bottom-controls {
+  padding: 1.25rem 2.5rem;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(7, 13, 24, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pres-indicators-list {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pres-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pres-dot.active {
+  background: var(--accent-cyan);
+  width: 28px;
+  border-radius: var(--radius-full);
+}
+
+.pres-slide-counter {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.pres-nav-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Judge Fast-Track Modal */
+.judge-modal-dialog {
+  max-width: 820px;
+  width: 100%;
+}
+
+.judge-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.judge-stat-card {
+  background: rgba(7, 13, 24, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.judge-stat-val {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  margin-bottom: 0.25rem;
+}
+
+.judge-stat-lbl {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.judge-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .pres-top-bar, .pres-bottom-controls {
+    padding: 1rem 1.25rem;
+  }
+  .pres-shortcut-hints {
+    display: none;
+  }
+  .pres-slides-viewport {
+    padding: 1.5rem;
+  }
+  .pres-slide-body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .judge-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

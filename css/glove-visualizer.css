@@ -1,0 +1,147 @@
+/* ==========================================================================
+   AI-POWERED FORWARD DIRECTIONAL SIGN LANGUAGE SYSTEM (AI-FSLS)
+   Smart Glove Visualizer & Interactive SVG Hand Styles
+   ========================================================================== */
+
+.glove-visualizer-card {
+  background: radial-gradient(circle at 50% 40%, rgba(17, 28, 51, 0.95) 0%, rgba(7, 13, 24, 0.98) 100%);
+  border: 1px solid var(--border-cyan);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(6, 182, 212, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.glove-visualizer-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  z-index: 2;
+}
+
+.glove-svg-wrapper {
+  width: 100%;
+  max-width: 380px;
+  height: 380px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+}
+
+.glove-svg-canvas {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+}
+
+/* SVG Elements Styling */
+.svg-hand-silhouette {
+  fill: rgba(15, 23, 42, 0.85);
+  stroke: rgba(148, 163, 184, 0.3);
+  stroke-width: 1.5;
+  transition: all var(--transition-normal);
+}
+
+.svg-flex-track {
+  fill: none;
+  stroke: var(--accent-cyan);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.15s ease-out, stroke-width 0.15s ease-out;
+  filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
+}
+
+.svg-sensor-node {
+  fill: #070d18;
+  stroke: var(--accent-cyan);
+  stroke-width: 2;
+  transition: transform 0.2s ease-out;
+  cursor: pointer;
+}
+
+.svg-sensor-node:hover {
+  fill: var(--accent-cyan);
+  filter: drop-shadow(0 0 8px #06b6d4);
+}
+
+.svg-imu-chip {
+  fill: #1e293b;
+  stroke: #3b82f6;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+
+.svg-esp-chip {
+  fill: #111c33;
+  stroke: #10b981;
+  stroke-width: 1.5;
+}
+
+/* Radio / BLE Pulse Animation */
+@keyframes blePulse {
+  0% { r: 6; opacity: 0.9; stroke-width: 2; }
+  50% { r: 18; opacity: 0.4; stroke-width: 1.5; }
+  100% { r: 30; opacity: 0; stroke-width: 0.5; }
+}
+
+.svg-ble-pulse {
+  fill: none;
+  stroke: var(--accent-cyan);
+  animation: blePulse 2s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+  transform-origin: center;
+}
+
+.svg-ble-pulse.delayed {
+  animation-delay: 0.75s;
+}
+
+/* Data Particle Stream Overlay */
+.particle-stream-overlay {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: rgba(7, 13, 24, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.particle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+  animation: particleBlink 1s infinite alternate;
+}
+
+@keyframes particleBlink {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Telemetry Micro Status Badges on Hand */
+.finger-label-group {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  fill: var(--text-muted);
+  font-weight: 600;
+  text-anchor: middle;
+}
