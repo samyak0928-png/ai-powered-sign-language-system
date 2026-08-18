@@ -10,7 +10,7 @@
 
 
 
-\*\*AI-Powered Forward Directional Sign Language System\*\*
+**AI-Powered Forward Directional Sign Language System**
 
 
 
@@ -30,7 +30,7 @@
 
 
 
-> \*\*What if saying "I need help" didn't require the person standing in front of you to know sign language?\*\*
+> **What if saying "I need help" didn't require the person standing in front of you to know sign language?**
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-\## ❤️ Why We Built This
+\## ❤️ Why I Built This
 
 
 
@@ -62,7 +62,7 @@ The problem isn't that you don't have a voice.
 
 
 
-\*\*The problem is that the two people don't speak the same language.\*\*
+**The problem is that the two people don't speak the same language.**
 
 
 
@@ -70,11 +70,11 @@ AI-FSLS is our attempt to reduce that gap.
 
 
 
-Our idea is simple:
+My idea is simple:
 
 
 
-> \*\*Let the user communicate naturally through sign language, and let technology translate that communication into something everyone can understand.\*\*
+> **Let the user communicate naturally through sign language, and let technology translate that communication into something everyone can understand.**
 
 
 
@@ -90,11 +90,11 @@ AI-FSLS stands for:
 
 
 
-\*\*AI-Powered Forward Directional Sign Language System\*\*
+**AI-Powered Forward Directional Sign Language System**
 
 
 
-The word \*\*Forward Directional\*\* means that our current system focuses on one direction:
+The word **Forward Directional** means that our current system focuses on one direction:
 
 
 
