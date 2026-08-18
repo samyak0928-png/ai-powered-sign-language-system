@@ -1,44 +1,40 @@
-\# AI-Powered Forward Directional Sign Language System (AI-FSLS)
+<div align="center">
 
 
 
-> \*\*Sign Language → Smart Glove → Sensor Data → AI Recognition → Text + Speech\*\*
+\# 🤟 AI-FSLS
 
 
 
-AI-FSLS is an accessibility-focused prototype designed to reduce the communication barrier between sign-language users and people who do not understand sign language.
+\### Turning Signs Into Words — And Words Into a Voice.
 
 
 
-The system proposes a smart glove equipped with \*\*flex sensors and an IMU\*\* to capture finger movements and hand orientation. The sensor data is processed and mapped to recognized signs, which are then converted into meaningful text and speech.
+\*\*AI-Powered Forward Directional Sign Language System\*\*
 
 
 
-\---
+<br>
 
 
 
-\## 🎯 Problem
+\[!\[Live Demo](https://img.shields.io/badge/🌐\_Live\_Demo-Visit\_Website-111827?style=for-the-badge)](https://ai-powered-sign-language-system.vercel.app/)
+
+\[!\[GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge\&logo=github)](https://github.com/samyak0928-png/ai-powered-sign-language-system)
+
+\[!\[License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](#-license)
 
 
 
-Many deaf and hard-of-hearing people rely on sign language, while many people in hospitals, educational institutions, banks, government offices, shops, and public places cannot understand it.
+<br>
 
 
 
-This creates a communication barrier, particularly when immediate communication is required.
+> \*\*What if saying "I need help" didn't require the person standing in front of you to know sign language?\*\*
 
 
 
-\### Our Goal
-
-
-
-Build an affordable and accessible system that converts sign-language gestures into:
-
-
-
-\*\*Text + Speech\*\*
+</div>
 
 
 
@@ -46,47 +42,71 @@ Build an affordable and accessible system that converts sign-language gestures i
 
 
 
-\## 💡 Proposed Solution
+\## ❤️ Why We Built This
 
 
 
-The proposed system follows a forward communication pipeline:
+Imagine walking into a hospital, bank, college, or government office and needing to communicate something important.
+
+
+
+You know exactly what you want to say.
+
+
+
+But the person standing in front of you doesn't understand sign language.
+
+
+
+The problem isn't that you don't have a voice.
+
+
+
+\*\*The problem is that the two people don't speak the same language.\*\*
+
+
+
+AI-FSLS is our attempt to reduce that gap.
+
+
+
+Our idea is simple:
+
+
+
+> \*\*Let the user communicate naturally through sign language, and let technology translate that communication into something everyone can understand.\*\*
+
+
+
+\---
+
+
+
+\# 🤟 The Idea
+
+
+
+AI-FSLS stands for:
+
+
+
+\*\*AI-Powered Forward Directional Sign Language System\*\*
+
+
+
+The word \*\*Forward Directional\*\* means that our current system focuses on one direction:
 
 
 
 ```text
 
-Sign Language
+SIGN-LANGUAGE USER
 
-&#x20;     ↓
+&#x20;       ↓
 
-Smart Glove
+&#x20;      SYSTEM
 
-&#x20;     ↓
+&#x20;       ↓
 
-Flex Sensors + IMU
-
-&#x20;     ↓
-
-Sensor Data
-
-&#x20;     ↓
-
-Data Processing
-
-&#x20;     ↓
-
-Gesture Recognition
-
-&#x20;     ↓
-
-Recognized Sign
-
-&#x20;     ↓
-
-NLP / Sentence Formation
-
-&#x20;     ↓
-
-Text + Speech
+&#x20; OTHER PERSON
 
