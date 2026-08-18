@@ -1,0 +1,183 @@
+/* ==========================================================================
+   AI-POWERED FORWARD DIRECTIONAL SIGN LANGUAGE SYSTEM (AI-FSLS)
+   Custom Cursor & Micro-Interactions (Deep-Tech / AI Aesthetics)
+   ========================================================================== */
+
+/* Only apply custom cursor on fine pointer devices (desktops/laptops with mouse) */
+@media (pointer: fine) {
+  html, body, 
+  a, button, input, select, textarea, [role="button"], 
+  .btn, .nav-link, .arch-node, .gesture-chip, .sign-picker-btn, .preset-chip {
+    cursor: none !important;
+  }
+
+  .custom-cursor-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999999;
+    overflow: hidden;
+    transition: opacity 0.35s ease;
+  }
+
+  .custom-cursor-container.cursor-idle {
+    opacity: 0;
+  }
+
+  /* Center Dot */
+  .cursor-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.9), 0 0 2px #ffffff;
+    pointer-events: none;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform;
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  /* Outer Ring */
+  .cursor-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1.25px solid rgba(6, 182, 212, 0.6);
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0.01) 70%, transparent 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.25), inset 0 0 8px rgba(6, 182, 212, 0.08);
+    pointer-events: none;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform, width, height, border-color, background;
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                height 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.2s ease, 
+                background 0.2s ease, 
+                box-shadow 0.2s ease,
+                border-radius 0.25s ease;
+  }
+
+  /* Canvas for motion trail */
+  .cursor-trail-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.65;
+  }
+
+  /* Click Ripple */
+  .cursor-ripple {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid rgba(6, 182, 212, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .cursor-ripple.ripple-active {
+    animation: cursorRippleAnim 0.35s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+  }
+
+  @keyframes cursorRippleAnim {
+    0% {
+      transform: translate3d(-50%, -50%, 0) scale(0.6);
+      opacity: 0.9;
+      border-color: rgba(6, 182, 212, 0.9);
+    }
+    100% {
+      transform: translate3d(-50%, -50%, 0) scale(2.2);
+      opacity: 0;
+      border-color: rgba(96, 165, 250, 0);
+    }
+  }
+
+  /* Hover State (Interactive elements) */
+  .cursor-hover .cursor-ring {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(6, 182, 212, 0.9);
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(6, 182, 212, 0.04) 70%, transparent 100%);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), inset 0 0 12px rgba(6, 182, 212, 0.15);
+  }
+
+  .cursor-hover .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: #06b6d4;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 1), 0 0 4px #ffffff;
+  }
+
+  /* Click State */
+  .cursor-clicked .cursor-dot {
+    width: 3px;
+    height: 3px;
+    box-shadow: 0 0 6px rgba(6, 182, 212, 1);
+  }
+
+  .cursor-clicked .cursor-ring {
+    width: 26px;
+    height: 26px;
+    border-color: #60a5fa;
+  }
+
+  /* Text Reading State */
+  .cursor-text .cursor-ring {
+    width: 20px;
+    height: 28px;
+    border-radius: 12px;
+    border-color: rgba(148, 163, 184, 0.35);
+    background: rgba(148, 163, 184, 0.03);
+    box-shadow: none;
+  }
+
+  .cursor-text .cursor-dot {
+    width: 3px;
+    height: 3px;
+    background: rgba(248, 250, 252, 0.8);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Magnetic Element Micro Shift */
+  .magnetic-active {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform;
+  }
+}
+
+/* Fallback & Touch Devices: Disable custom cursor */
+@media (pointer: coarse) {
+  .custom-cursor-container {
+    display: none !important;
+  }
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-trail-canvas {
+    display: none !important;
+  }
+  .cursor-ring, .cursor-dot {
+    transition: none !important;
+  }
+  .magnetic-active {
+    transform: none !important;
+    transition: none !important;
+  }
+}
