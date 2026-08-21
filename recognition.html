@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Recognition Pipeline | AI-Powered Forward Directional Sign Language System</title>
+  
+  <meta name="description" content="Discover how AI recognizes sign language gestures from glove sensor data through signal filtering, feature extraction, and temporal classification.">
+  <meta name="keywords" content="Gesture Recognition, Sign Language AI, Machine Learning, Temporal Classification, Assistive AI">
+  <meta property="og:title" content="Sign Recognition Pipeline | AI-FSLS">
+  <meta property="og:description" content="From raw sensor stream to recognized sign gloss: the multi-stage AI classification pipeline.">
+  <meta property="og:type" content="website">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/glove-visualizer.css">
+  <link rel="stylesheet" href="css/demo.css">
+  <link rel="stylesheet" href="css/presentation.css">
+  <link rel="stylesheet" href="css/custom-cursor.css">
+</head>
+<body>
+
+  <!-- Top Prototype Truthfulness Ribbon -->
+  <aside class="prototype-top-banner" aria-label="Prototype Status Announcement">
+    <span class="banner-badge">PROTOTYPE SIMULATION</span>
+    <span>Demo Prototype Mode — Physical hardware & trained models are not connected. All telemetry and inference are simulated for concept validation.</span>
+  </aside>
+
+  <!-- Sticky Global Navigation -->
+  <header class="site-header" id="top-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="AI-FSLS Home">
+        <span class="brand-badge">AI-FSLS</span>
+        <div class="brand-text">
+          <span>AI-Powered Forward Directional</span>
+          <span class="brand-sub">SIGN LANGUAGE SYSTEM</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="glove.html" class="nav-link">Smart Glove</a></li>
+          <li><a href="recognition.html" class="nav-link active" aria-current="page">Recognition</a></li>
+          <li><a href="communication.html" class="nav-link">Communication</a></li>
+          <li><a href="technology.html" class="nav-link">AI & Technology</a></li>
+          <li><a href="demo.html" class="nav-link">Full Demo</a></li>
+          <li><a href="presentation.html" class="nav-link">Presentation</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action CTAs -->
+      <div class="nav-actions">
+        <button type="button" class="btn btn-outline-cyan btn-sm" id="btn-judge-mode" aria-haspopup="dialog">
+          <span>⚖️ Judge Mode</span>
+        </button>
+        <a href="presentation.html" class="btn btn-secondary btn-sm">
+          <span>📽️ Pitch Slides</span>
+        </a>
+        <a href="demo.html" class="btn btn-primary btn-sm">
+          <span>Launch Demo →</span>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button type="button" class="mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-menu-drawer hidden" id="mobile-menu">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="glove.html" class="mobile-nav-link">Smart Glove</a>
+      <a href="recognition.html" class="mobile-nav-link active">Sign Recognition</a>
+      <a href="communication.html" class="mobile-nav-link">Communication</a>
+      <a href="technology.html" class="mobile-nav-link">AI & Technology</a>
+      <a href="demo.html" class="mobile-nav-link">Full Demo</a>
+      <a href="presentation.html" class="mobile-nav-link">Presentation / Judge Mode</a>
+      <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+        <button type="button" class="btn btn-outline-cyan btn-sm" onclick="document.getElementById('btn-judge-mode').click()">⚖️ Judge Mode</button>
+        <a href="presentation.html" class="btn btn-secondary btn-sm">📽️ Pitch Slides</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-glow hero-glow-1"></div>
+      <div class="hero-glow hero-glow-2"></div>
+      <div class="container" style="max-width: 900px; text-align: center; margin: 0 auto;">
+        <div class="section-eyebrow">AI INFERENCE PIPELINE</div>
+        <h1 class="hero-headline">How Does the System Recognize a Sign?</h1>
+        <p class="hero-supporting" style="margin: 0 auto 2rem auto;">
+          The recognition layer translates continuous spatial-temporal sensor signals into discrete linguistic sign units through signal filtering, feature extraction, and temporal classification models.
+        </p>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE RECOGNITION LAB -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        
+        <div class="demo-lab-container">
+          <div class="demo-header-banner">
+            <div class="demo-header-left">
+              <span class="demo-title">🔬 Gesture Recognition Pipeline Simulator</span>
+              <span class="badge badge-warning">SIMULATION MODE</span>
+            </div>
+            <span style="font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono);">
+              Demo Vocabulary: 14 Calibrated Signs
+            </span>
+          </div>
+
+          <div class="demo-body-grid">
+            
+            <!-- Left Column: Input Gesture Selection -->
+            <div class="demo-left-column">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <label for="demo-gesture-select" style="font-weight: 700; font-size: 0.9rem;">Select Gesture to Recognize:</label>
+                  <span class="badge badge-cyan">14 Signs</span>
+                </div>
+
+                <!-- 14 Chips -->
+                <div class="gesture-chips-grid" id="gesture-chips-container">
+                  <!-- Populated via dataset.js -->
+                </div>
+
+                <select id="demo-gesture-select" style="display: none; width: 100%; margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-surface-elevated); color: var(--text-primary); border: 1px solid var(--border-medium); border-radius: var(--radius-sm);">
+                  <!-- Fallback options -->
+                </select>
+              </div>
+
+              <!-- Options Bar -->
+              <div class="demo-options-bar">
+                <label class="toggle-label">
+                  <input type="checkbox" id="toggle-skip-anim">
+                  <span>⚡ Skip Animation (Fast Evaluation)</span>
+                </label>
+                <button type="button" class="btn btn-outline-cyan btn-sm" id="btn-simulate-lowconf" title="Test how system safely handles ambiguous or noisy gestures">
+                  <span>⚠️ Ambiguous Gesture</span>
+                </button>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem;">
+                <button type="button" class="btn btn-primary" id="btn-start-recognition" style="flex: 1;">
+                  <span>▶ Run AI Classification</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="btn-reset-demo">
+                  <span>Reset</span>
+                </button>
+              </div>
+
+              <div style="background: rgba(7, 13, 24, 0.6); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                💡 <strong>How it works:</strong> Selecting a gesture loads its characteristic 5-finger bend profile and 6-DOF IMU trajectory, then executes the simulated inference sequence.
+              </div>
+            </div>
+
+            <!-- Right Column: Inference Progression & Output -->
+            <div class="demo-right-column">
+              
+              <!-- 5-Stage Step Tracker -->
+              <div class="pipeline-progress-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase;">Inference Progression</span>
+                  <span class="badge badge-cyan" id="pipeline-status-badge">AI Engine</span>
+                </div>
+
+                <div class="progress-track">
+                  <div class="progress-bar-fill" id="pipeline-progress-bar"></div>
+                </div>
+
+                <div class="pipeline-steps-indicator">
+                  <div class="pipe-step pending" id="pipe-step-1">
+                    <div class="pipe-step-num">1</div>
+                    <span>Telemetry</span>
+                  </div>
+                  <div class="pipe-step pending" id="pipe-step-2">
+                    <div class="pipe-step-num">2</div>
+                    <span>Filtering</span>
+                  </div>
+                  <div class="pipe-step pending" id="pipe-step-3">
+                    <div class="pipe-step-num">3</div>
+                    <span>Features</span>
+                  </div>
+                  <div class="pipe-step pending" id="pipe-step-4">
+                    <div class="pipe-step-num">4</div>
+                    <span>Classifier</span>
+                  </div>
+                </div>
+
+                <div class="pipeline-status-text" id="pipeline-step-label">Ready for Gesture Input</div>
+                <div class="pipeline-status-detail" id="pipeline-step-detail">Select a sign and click "Run AI Classification" to observe the multi-stage pipeline.</div>
+              </div>
+
+              <!-- Output Result Card -->
+              <div class="demo-result-card" id="demo-result-card">
+                <div class="result-header">
+                  <span class="result-section-label">Recognized Sign Gloss</span>
+                  <span class="badge badge-neutral" id="output-confidence-badge">Pending Input</span>
+                </div>
+
+                <div>
+                  <span class="recognized-sign-badge" id="output-recognized-sign">—</span>
+                </div>
+
+                <div>
+                  <span class="result-section-label" style="margin-bottom: 0.4rem; display: block;">NLP Formed Natural Sentence:</span>
+                  <div class="nlp-sentence-display" id="output-nlp-text">—</div>
+                </div>
+
+                <!-- Audio Waveform -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                    <span class="result-section-label">Speech Synthesis Preview</span>
+                    <span class="badge badge-cyan speech-active-indicator hidden">● Audio Output Active</span>
+                  </div>
+                  <canvas id="speech-waveform-single" class="waveform-canvas" width="400" height="40"></canvas>
+                </div>
+
+                <div class="result-actions-cluster">
+                  <button type="button" class="btn btn-primary btn-sm" id="btn-play-speech">
+                    <span>🔊 Play Speech (TTS)</span>
+                  </button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="btn-copy-nlp-text">
+                    <span>📋 Copy Text</span>
+                  </button>
+                  <span style="margin-left: auto; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
+                    Simulated Confidence: <strong id="output-confidence-score" style="color: var(--accent-cyan);">—</strong>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Low-Confidence Alert -->
+              <div class="lowconf-alert-card hidden" id="demo-lowconf-alert">
+                <span style="font-size: 1.4rem;">⚠️</span>
+                <div>
+                  <strong>Low Confidence Safety Fallback:</strong>
+                  <p style="margin-top: 0.25rem; font-size: 0.82rem; color: #fde68a;">
+                    The simulated classifier score (48%) fell below the 80% safety threshold. Instead of generating inaccurate speech, the system holds output and prompts the signer: <em>"Please repeat the gesture."</em>
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COMPUTATIONAL LOGIC & MACHINE LEARNING ARCHITECTURE -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">MACHINE LEARNING FOUNDATION</div>
+          <h2 class="section-title">Teaching AI to Classify Sensor Patterns</h2>
+          <p class="section-subtitle">
+            How physical sensor readings map onto sign recognition models.
+          </p>
+        </div>
+
+        <div class="ml-comparison-grid">
+          
+          <div class="ml-box">
+            <div class="ml-box-header">
+              <h3>Static Poses (Handshapes)</h3>
+              <span class="badge badge-cyan">Spatial Features</span>
+            </div>
+            <p>
+              Gestures defined primarily by stationary finger bending configurations (e.g. finger-spelling letters, numbers, or static affirmations).
+            </p>
+            <div style="margin-top: 1rem;">
+              <strong style="font-size: 0.85rem; color: var(--text-primary);">Planned Model Approaches:</strong>
+              <div class="ml-model-pills">
+                <span class="ml-pill">Random Forest</span>
+                <span class="ml-pill">Support Vector Machines (SVM)</span>
+                <span class="ml-pill">K-Nearest Neighbors (KNN)</span>
+                <span class="ml-pill">Multi-Layer Perceptron (MLP)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ml-box">
+            <div class="ml-box-header">
+              <h3>Dynamic Signs (Motion & Trajectory)</h3>
+              <span class="badge badge-cyan">Temporal Sequences</span>
+            </div>
+            <p>
+              Signs involving hand motion over time, rotational arcs, and velocity transitions (e.g., "HELP", "THANK YOU", "WATER").
+            </p>
+            <div style="margin-top: 1rem;">
+              <strong style="font-size: 0.85rem; color: var(--text-primary);">Planned Model Approaches:</strong>
+              <div class="ml-model-pills">
+                <span class="ml-pill">Long Short-Term Memory (LSTM)</span>
+                <span class="ml-pill">Gated Recurrent Units (GRU)</span>
+                <span class="ml-pill">1D-CNN Temporal Encoders</span>
+                <span class="ml-pill">Transformer Sequence Models</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Next Navigation Banner -->
+        <div style="margin-top: 3.5rem; text-align: center;">
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">How do recognized signs assemble into fluent sentences?</p>
+          <a href="communication.html" class="btn btn-primary btn-lg">
+            <span>Next: Explore Communication & Sentence Formation →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 1rem;">
+            <span class="brand-badge">AI-FSLS</span>
+            <div class="brand-text">
+              <span>AI-Powered Forward Directional</span>
+              <span class="brand-sub">SIGN LANGUAGE SYSTEM</span>
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 320px;">
+            "Different language. Same message." A wearable AI communication bridge for sign-language users.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; color: var(--text-primary);">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="glove.html">Smart Glove Anatomy</a></li>
+            <li><a href="recognition.html">Sign Recognition</a></li>
+            <li><a href="communication.html">Communication & Speech</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; color: var(--text-primary);">Deep-Tech</h4>
+          <ul class="footer-links">
+            <li><a href="technology.html">AI & Technology Matrix</a></li>
+            <li><a href="demo.html">Full End-to-End Demo</a></li>
+            <li><a href="presentation.html">Presentation Mode</a></li>
+            <li><a href="https://github.com/samyak0928-png/ai-powered-sign-language-system" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; color: var(--text-primary);">Project Status</h4>
+          <ul class="footer-links">
+            <li><span style="color: var(--text-muted);">Ideathon Prototype</span></li>
+            <li><span style="color: var(--text-muted);">Simulated Telemetry Active</span></li>
+            <li><span style="color: var(--text-muted);">Web Speech API Enabled</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 AI-Powered Forward Directional Sign Language System (AI-FSLS). Prototype for Concept Demonstration.</span>
+        <span>Honest Technology Disclosure: All hardware & AI metrics are simulated.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+  <div class="modal-overlay hidden" id="judge-modal" aria-hidden="true" role="dialog" aria-labelledby="judge-modal-title">
+    <div class="modal-dialog judge-modal-dialog">
+      <button type="button" class="modal-close-btn" id="judge-modal-close" aria-label="Close Judge Review">×</button>
+      
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+        <span class="badge badge-cyan">FAST-TRACK REVIEW</span>
+        <span class="badge badge-warning">HONEST PROTOTYPE DISCLOSURE</span>
+      </div>
+
+      <h3 id="judge-modal-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Ideathon / Hackathon Judge Evaluation Panel</h3>
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">
+        Designed for judges to quickly assess the problem, architecture, prototype credibility, and test working interactions within 60 seconds.
+      </p>
+
+      <div class="judge-summary-grid">
+        <div class="judge-stat-card">
+          <div class="judge-stat-val">100%</div>
+          <div class="judge-stat-lbl">Lighting Independence (Wearable Glove)</div>
+        </div>
+        <div class="judge-stat-card">
+          <div class="judge-stat-val">&lt; 1.0s</div>
+          <div class="judge-stat-lbl">Target Sign-to-Speech Latency</div>
+        </div>
+        <div class="judge-stat-card">
+          <div class="judge-stat-val">14 Signs</div>
+          <div class="judge-stat-lbl">Interactive Demo Vocabulary</div>
+        </div>
+      </div>
+
+      <div style="background: rgba(7, 13, 24, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+        <strong style="font-size: 0.9rem; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Prototype Truthfulness Standard:</strong>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
+          • <strong>Current Status:</strong> Interactive simulated prototype. No physical glove or trained model is connected.<br>
+          • <strong>Telemetry:</strong> Generated using smooth realistic interpolation and noise modeling.<br>
+          • <strong>Speech:</strong> Powered live by the browser's native Web Speech API.
+        </p>
+      </div>
+
+      <strong style="font-size: 0.9rem; color: var(--text-primary);">1-Click Demo Evaluation Triggers:</strong>
+      <div class="judge-actions-row">
+        <button type="button" class="btn btn-primary btn-sm" id="judge-trigger-emergency">
+          <span>🚨 Test Emergency Sign ("HELP")</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="judge-trigger-water">
+          <span>💧 Test Daily Sign ("WATER")</span>
+        </button>
+        <button type="button" class="btn btn-outline-cyan btn-sm" id="judge-trigger-lowconf">
+          <span>⚠️ Test Low-Confidence Safety</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="judge-trigger-livedemo">
+          <span>Open Full Demo Lab →</span>
+        </button>
+      </div>
+
+      <div style="margin-top: 1.75rem; text-align: right;">
+        <button type="button" class="btn btn-secondary btn-sm" id="judge-dismiss-btn">Close Panel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container" aria-live="polite">
+    <div class="toast hidden" id="app-toast">
+      <span id="toast-message">Notification message</span>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

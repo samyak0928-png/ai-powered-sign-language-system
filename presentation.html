@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pitch Deck & Judge Mode | AI-Powered Forward Directional Sign Language System</title>
+  
+  <meta name="description" content="Pitch presentation deck and 60-second fast-track evaluation panel for Ideathon and Hackathon judges.">
+  <meta name="keywords" content="Sign Language Presentation, Pitch Deck, Judge Mode, Assistive Tech Pitch, Ideathon">
+  <meta property="og:title" content="Pitch Deck & Judge Mode | AI-FSLS">
+  <meta property="og:description" content="Slide deck and evaluation fast-track for hackathon judges.">
+  <meta property="og:type" content="website">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/glove-visualizer.css">
+  <link rel="stylesheet" href="css/demo.css">
+  <link rel="stylesheet" href="css/presentation.css">
+  <link rel="stylesheet" href="css/custom-cursor.css">
+</head>
+<body class="presentation-page-body">
+
+  <!-- Top Prototype Truthfulness Ribbon -->
+  <aside class="prototype-top-banner" aria-label="Prototype Status Announcement">
+    <span class="banner-badge">PROTOTYPE SIMULATION</span>
+    <span>Demo Prototype Mode — Physical hardware & trained models are not connected. All telemetry and inference are simulated for concept validation.</span>
+  </aside>
+
+  <!-- Sticky Global Navigation -->
+  <header class="site-header" id="top-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="AI-FSLS Home">
+        <span class="brand-badge">AI-FSLS</span>
+        <div class="brand-text">
+          <span>AI-Powered Forward Directional</span>
+          <span class="brand-sub">SIGN LANGUAGE SYSTEM</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="glove.html" class="nav-link">Smart Glove</a></li>
+          <li><a href="recognition.html" class="nav-link">Recognition</a></li>
+          <li><a href="communication.html" class="nav-link">Communication</a></li>
+          <li><a href="technology.html" class="nav-link">AI & Technology</a></li>
+          <li><a href="demo.html" class="nav-link">Full Demo</a></li>
+          <li><a href="presentation.html" class="nav-link active" aria-current="page">Presentation</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action CTAs -->
+      <div class="nav-actions">
+        <button type="button" class="btn btn-outline-cyan btn-sm" id="btn-judge-mode" aria-haspopup="dialog">
+          <span>⚖️ Fast Judge Mode</span>
+        </button>
+        <a href="demo.html" class="btn btn-primary btn-sm">
+          <span>Launch Demo →</span>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button type="button" class="mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-menu-drawer hidden" id="mobile-menu">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="glove.html" class="mobile-nav-link">Smart Glove</a>
+      <a href="recognition.html" class="mobile-nav-link">Sign Recognition</a>
+      <a href="communication.html" class="mobile-nav-link">Communication</a>
+      <a href="technology.html" class="mobile-nav-link">AI & Technology</a>
+      <a href="demo.html" class="mobile-nav-link">Full Demo</a>
+      <a href="presentation.html" class="mobile-nav-link active">Presentation / Judge Mode</a>
+      <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+        <button type="button" class="btn btn-outline-cyan btn-sm" onclick="document.getElementById('btn-judge-mode').click()">⚖️ Judge Mode</button>
+        <a href="demo.html" class="btn btn-primary btn-sm">Launch Demo →</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" style="min-height: calc(100vh - 200px); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem 1rem;">
+    
+    <!-- EMBEDDED PRESENTATION DECK -->
+    <div class="presentation-modal" id="presentation-modal" style="position: relative; top: auto; left: auto; right: auto; bottom: auto; z-index: 10; max-width: 1100px; width: 100%; height: 680px; border-radius: var(--radius-xl); border: 1px solid var(--border-medium); box-shadow: 0 25px 60px rgba(0,0,0,0.8); background: var(--bg-surface-elevated);" role="region" aria-label="Pitch Deck Slide Presentation">
+      
+      <!-- Top Pres Bar -->
+      <div class="pres-top-bar">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span class="badge badge-cyan">PITCH DECK</span>
+          <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">AI-Powered Forward Directional Sign Language System</span>
+        </div>
+        
+        <div class="pres-controls-right">
+          <span id="pres-slide-counter" class="pres-counter">1 / 6</span>
+          <a href="demo.html" class="btn btn-primary btn-sm" title="Jump straight to interactive demo">Open Demo Lab →</a>
+        </div>
+      </div>
+
+      <!-- Slide Content Viewport -->
+      <div class="pres-slide-viewport">
+        
+        <!-- Slide 1: The Problem -->
+        <div class="pres-slide active" data-slide="1">
+          <div class="section-eyebrow">SLIDE 01 / 06 • THE PROBLEM</div>
+          <h2 class="pres-slide-title">The Communication Barrier Is Asymmetric</h2>
+          <p class="pres-slide-subtitle">Over 70 million Deaf and hard-of-hearing individuals worldwide face daily barriers when interacting with a hearing world that rarely understands sign language.</p>
+          
+          <div class="pres-grid-3">
+            <div class="pres-card">
+              <span class="pres-card-icon">⚡</span>
+              <h4>Healthcare & Triage</h4>
+              <p>In emergencies, delayed communication can result in misdiagnosis, anxiety, and preventable medical crises.</p>
+            </div>
+            <div class="pres-card">
+              <span class="pres-card-icon">🏬</span>
+              <h4>Daily Independence</h4>
+              <p>Purchasing groceries, asking for transit directions, or banking requires reliance on written notes or interpreters.</p>
+            </div>
+            <div class="pres-card">
+              <span class="pres-card-icon">💼</span>
+              <h4>Workplace Equity</h4>
+              <p>Exclusion from real-time spontaneous conversations restricts career progression and social inclusion.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Forward Directional Concept -->
+        <div class="pres-slide" data-slide="2" hidden>
+          <div class="section-eyebrow">SLIDE 02 / 06 • THE SOLUTION</div>
+          <h2 class="pres-slide-title">Forward Directional Communication</h2>
+          <p class="pres-slide-subtitle">The user signs naturally. The wearable smart glove captures movement. AI recognizes gestures and synthesizes acoustic speech directed outward toward the listener.</p>
+          
+          <div class="hero-directional-pipeline" style="margin: 2rem 0; justify-content: center;">
+            <span class="pipeline-chip">1. SIGNER</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="pipeline-chip highlight">2. SMART GLOVE</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="pipeline-chip highlight">3. AI ENGINE</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="pipeline-chip highlight">4. NLP LAYER</span>
+            <span class="pipeline-arrow">→</span>
+            <span class="pipeline-chip output">5. SPEECH OUT</span>
+          </div>
+
+          <p style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; max-width: 700px; margin: 0 auto;">
+            Unlike camera-only apps that require holding a phone in front of one's face or standing in front of a laptop in good lighting, a wearable glove enables hands-free, natural signing in any environment.
+          </p>
+        </div>
+
+        <!-- Slide 3: Hardware & Sensor Fusion -->
+        <div class="pres-slide" data-slide="3" hidden>
+          <div class="section-eyebrow">SLIDE 03 / 06 • HARDWARE & SENSING</div>
+          <h2 class="pres-slide-title">Wearable Sensing Architecture</h2>
+          <p class="pres-slide-subtitle">Fusing 5 resistive flex sensors with a 6-DOF IMU to capture both finger curvature and 3D hand orientation at 50Hz.</p>
+          
+          <div class="pres-grid-2">
+            <div class="pres-card">
+              <h4>✋ 5-Finger Flex Sensors</h4>
+              <p>Embedded conductive strip sensors along each finger measure joint curvature angles from 0° (flat) to 90° (fully flexed).</p>
+            </div>
+            <div class="pres-card">
+              <h4>🧭 6-DOF IMU (Accel + Gyro)</h4>
+              <p>Wrist-mounted sensor tracking 3D spatial velocity, roll, pitch, and yaw for dynamic sign recognition.</p>
+            </div>
+            <div class="pres-card">
+              <h4>⚡ ESP32 Edge MCU</h4>
+              <p>32-bit dual-core microcontroller digitizing analog voltages and packaging telemetry data packets.</p>
+            </div>
+            <div class="pres-card">
+              <h4>📡 Bluetooth Low Energy</h4>
+              <p>Low-latency, energy-efficient wireless streaming directly to companion mobile devices or web applications.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: AI Recognition & NLP -->
+        <div class="pres-slide" data-slide="4" hidden>
+          <div class="section-eyebrow">SLIDE 04 / 06 • AI & NLP PIPELINE</div>
+          <h2 class="pres-slide-title">From Sensor Streams to Fluent Speech</h2>
+          <p class="pres-slide-subtitle">Multi-stage pipeline: Signal Filtering → Spatial-Temporal Classification → NLP Grammar Transformation → Text-to-Speech.</p>
+          
+          <div class="pres-grid-3">
+            <div class="pres-card">
+              <span class="pres-card-icon">🎛️</span>
+              <h4>Signal Preprocessing</h4>
+              <p>Butterworth digital low-pass filtering and dynamic min-max calibration baseline normalization.</p>
+            </div>
+            <div class="pres-card">
+              <span class="pres-card-icon">🧠</span>
+              <h4>Temporal AI Classifier</h4>
+              <p>Random Forest &amp; SVM for static handshapes; LSTM &amp; Transformers for dynamic multi-frame trajectory signs.</p>
+            </div>
+            <div class="pres-card">
+              <span class="pres-card-icon">🗣️</span>
+              <h4>NLP Sentence Synthesis</h4>
+              <p>Translates concatenated sign glosses (e.g. <em>[I] [WANT] [WATER]</em>) into polite, fluent spoken English (<em>"I want water, please."</em>).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Societal Impact -->
+        <div class="pres-slide" data-slide="5" hidden>
+          <div class="section-eyebrow">SLIDE 05 / 06 • IMPACT & APPLICATIONS</div>
+          <h2 class="pres-slide-title">Transforming Daily Human Communication</h2>
+          <p class="pres-slide-subtitle">Empowering Deaf individuals with autonomous communication across critical real-world touchpoints.</p>
+          
+          <div class="pres-grid-3">
+            <div class="pres-card">
+              <h4>🏥 Healthcare Access</h4>
+              <p>Immediate communication in clinics and emergency rooms without waiting for interpreter arrival.</p>
+            </div>
+            <div class="pres-card">
+              <h4>🎓 Inclusive Education</h4>
+              <p>Equal participation in classrooms, lectures, team projects, and presentations.</p>
+            </div>
+            <div class="pres-card">
+              <h4>🛍️ Public Services</h4>
+              <p>Effortless ordering at restaurants, buying transit tickets, and retail assistance.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 6: Feasibility & Roadmap -->
+        <div class="pres-slide" data-slide="6" hidden>
+          <div class="section-eyebrow">SLIDE 06 / 06 • ROADMAP & VISION</div>
+          <h2 class="pres-slide-title">Engineering Feasibility & Next Steps</h2>
+          <p class="pres-slide-subtitle">An honest, milestone-driven path from proof-of-concept prototype to production wearable.</p>
+          
+          <div class="pres-grid-3">
+            <div class="pres-card">
+              <span class="badge badge-success">Phase 1 • Current</span>
+              <h4 style="margin-top: 0.5rem;">Web Proof-of-Concept</h4>
+              <p>Simulated telemetry, 14-sign recognition lab, NLP sentence synthesis, and presentation tooling.</p>
+            </div>
+            <div class="pres-card">
+              <span class="badge badge-cyan">Phase 2 • Planned</span>
+              <h4 style="margin-top: 0.5rem;">Hardware Prototype</h4>
+              <p>Custom flexible PCB, ESP32 BLE integration, and multi-signer dataset collection.</p>
+            </div>
+            <div class="pres-card">
+              <span class="badge badge-neutral">Phase 3 • Future</span>
+              <h4 style="margin-top: 0.5rem;">TinyML & Miniaturization</h4>
+              <p>On-device edge inference, camera-glove sensor fusion, and multi-language translation.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pres Bottom Controls -->
+      <div class="pres-bottom-bar">
+        <div class="pres-keyboard-hints">
+          <span>Navigate: <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd></span>
+        </div>
+
+        <div class="pres-dots-container" role="tablist" aria-label="Slide Indicator Dots">
+          <button type="button" class="pres-dot active" aria-label="Go to slide 1"></button>
+          <button type="button" class="pres-dot" aria-label="Go to slide 2"></button>
+          <button type="button" class="pres-dot" aria-label="Go to slide 3"></button>
+          <button type="button" class="pres-dot" aria-label="Go to slide 4"></button>
+          <button type="button" class="pres-dot" aria-label="Go to slide 5"></button>
+          <button type="button" class="pres-dot" aria-label="Go to slide 6"></button>
+        </div>
+
+        <div class="pres-nav-buttons">
+          <button type="button" class="btn btn-secondary btn-sm" id="pres-prev-btn" disabled>← Previous</button>
+          <button type="button" class="btn btn-primary btn-sm" id="pres-next-btn">Next →</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Judge Evaluation Quick Trigger -->
+    <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <button type="button" class="btn btn-outline-cyan" onclick="document.getElementById('btn-judge-mode').click()">
+        <span>⚖️ Open Judge 60-Second Fast-Track Panel</span>
+      </button>
+      <a href="demo.html" class="btn btn-secondary">
+        <span>Open Interactive Live Demo Lab →</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 1rem;">
+            <span class="brand-badge">AI-FSLS</span>
+            <div class="brand-text">
+              <span>AI-Powered Forward Directional</span>
+              <span class="brand-sub">SIGN LANGUAGE SYSTEM</span>
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 320px;">
+            "Different language. Same message." A wearable AI communication bridge for sign-language users.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; color: var(--text-primary);">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="glove.html">Smart Glove Anatomy</a></li>
+            <li><a href="recognition.html">Sign Recognition</a></li>
+            <li><a href="communication.html">Communication & Speech</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; color: var(--text-primary);">Deep-Tech</h4>
+          <ul class="footer-links">
+            <li><a href="technology.html">AI & Technology Matrix</a></li>
+            <li><a href="demo.html">Full End-to-End Demo</a></li>
+            <li><a href="presentation.html">Presentation Mode</a></li>
+            <li><a href="https://github.com/samyak0928-png/ai-powered-sign-language-system" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; color: var(--text-primary);">Project Status</h4>
+          <ul class="footer-links">
+            <li><span style="color: var(--text-muted);">Ideathon Prototype</span></li>
+            <li><span style="color: var(--text-muted);">Simulated Telemetry Active</span></li>
+            <li><span style="color: var(--text-muted);">Web Speech API Enabled</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 AI-Powered Forward Directional Sign Language System (AI-FSLS). Prototype for Concept Demonstration.</span>
+        <span>Honest Technology Disclosure: All hardware & AI metrics are simulated.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+  <div class="modal-overlay hidden" id="judge-modal" aria-hidden="true" role="dialog" aria-labelledby="judge-modal-title">
+    <div class="modal-dialog judge-modal-dialog">
+      <button type="button" class="modal-close-btn" id="judge-modal-close" aria-label="Close Judge Review">×</button>
+      
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+        <span class="badge badge-cyan">FAST-TRACK REVIEW</span>
+        <span class="badge badge-warning">HONEST PROTOTYPE DISCLOSURE</span>
+      </div>
+
+      <h3 id="judge-modal-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Ideathon / Hackathon Judge Evaluation Panel</h3>
+      <p style="color: var(--text-secondary); font-size: 0.95rem;">
+        Designed for judges to quickly assess the problem, architecture, prototype credibility, and test working interactions within 60 seconds.
+      </p>
+
+      <div class="judge-summary-grid">
+        <div class="judge-stat-card">
+          <div class="judge-stat-val">100%</div>
+          <div class="judge-stat-lbl">Lighting Independence (Wearable Glove)</div>
+        </div>
+        <div class="judge-stat-card">
+          <div class="judge-stat-val">&lt; 1.0s</div>
+          <div class="judge-stat-lbl">Target Sign-to-Speech Latency</div>
+        </div>
+        <div class="judge-stat-card">
+          <div class="judge-stat-val">14 Signs</div>
+          <div class="judge-stat-lbl">Interactive Demo Vocabulary</div>
+        </div>
+      </div>
+
+      <div style="background: rgba(7, 13, 24, 0.8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+        <strong style="font-size: 0.9rem; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">Prototype Truthfulness Standard:</strong>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
+          • <strong>Current Status:</strong> Interactive simulated prototype. No physical glove or trained model is connected.<br>
+          • <strong>Telemetry:</strong> Generated using smooth realistic interpolation and noise modeling.<br>
+          • <strong>Speech:</strong> Powered live by the browser's native Web Speech API.
+        </p>
+      </div>
+
+      <strong style="font-size: 0.9rem; color: var(--text-primary);">1-Click Demo Evaluation Triggers:</strong>
+      <div class="judge-actions-row">
+        <button type="button" class="btn btn-primary btn-sm" id="judge-trigger-emergency">
+          <span>🚨 Test Emergency Sign ("HELP")</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="judge-trigger-water">
+          <span>💧 Test Daily Sign ("WATER")</span>
+        </button>
+        <button type="button" class="btn btn-outline-cyan btn-sm" id="judge-trigger-lowconf">
+          <span>⚠️ Test Low-Confidence Safety</span>
+        </button>
+        <a href="demo.html" class="btn btn-secondary btn-sm">
+          <span>Open Full Demo Lab →</span>
+        </a>
+      </div>
+
+      <div style="margin-top: 1.75rem; text-align: right;">
+        <button type="button" class="btn btn-secondary btn-sm" id="judge-dismiss-btn">Close Panel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container" aria-live="polite">
+    <div class="toast hidden" id="app-toast">
+      <span id="toast-message">Notification message</span>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

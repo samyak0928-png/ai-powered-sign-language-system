@@ -30,6 +30,19 @@ export class PresentationModeController {
     if (exitBtn) exitBtn.addEventListener('click', () => this.exit());
     if (openPresBtn) openPresBtn.addEventListener('click', () => this.enter());
     if (openPresHeroBtn) openPresHeroBtn.addEventListener('click', () => this.enter());
+
+    // Connect indicator dots if present
+    const dots = document.querySelectorAll('.pres-dot');
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => this.goToSlide(idx));
+    });
+
+    // If on presentation.html directly (where modal is open by default or standalone page)
+    if (!this.container.classList.contains('hidden')) {
+      this.isActive = true;
+      window.addEventListener('keydown', this.boundKeyHandler);
+      this.renderSlide();
+    }
   }
 
   enter(initialSlide = 0) {
@@ -45,6 +58,12 @@ export class PresentationModeController {
   }
 
   exit() {
+    // If on presentation.html, exit can navigate to index.html or close fullscreen
+    if (window.location.pathname.endsWith('presentation.html')) {
+      window.location.href = 'index.html';
+      return;
+    }
+
     this.isActive = false;
     if (this.container) {
       this.container.classList.add('hidden');

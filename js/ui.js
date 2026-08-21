@@ -1,6 +1,6 @@
 /**
  * AI-Powered Forward Directional Sign Language System (AI-FSLS)
- * UI Controller & Interactive Visualizer Bindings
+ * UI Controller & Multi-Page Visualizer Bindings
  */
 
 import { GESTURE_DATASET, SENTENCE_PRESETS } from './dataset.js';
@@ -11,7 +11,7 @@ import { sentenceBuilder } from './sentence-builder.js';
 
 export class UIController {
   constructor() {
-    this.activeTab = 'single'; // 'single' | 'sentence' | 'error'
+    this.activeTab = 'single'; // 'single' | 'sentence'
   }
 
   init() {
@@ -23,12 +23,14 @@ export class UIController {
     this.bindArchitectureDiagram();
     this.bindSpeechWaveform();
     this.bindToast();
-    
-    // Start continuous telemetry simulation
-    gloveSim.start();
+
+    // Start glove simulation if telemetry elements or SVG hand exist on page
+    if (document.getElementById('svg-hand-container') || document.getElementById('gauge-bar-thumb')) {
+      gloveSim.start();
+    }
   }
 
-  /* ================= NAVIGATION & SCROLL SPY ================= */
+  /* ================= NAVIGATION & ACTIVE PAGE HIGHLIGHT ================= */
   bindNavigation() {
     const navToggle = document.getElementById('mobile-nav-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -42,12 +44,23 @@ export class UIController {
       });
     }
 
+    // Set active link based on current pathname if not manually assigned
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href) {
+        const linkPath = href.split('#')[0].split('/').pop();
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+          link.classList.add('active');
+        }
+      }
+
+      // Smooth scroll for hash links on the same page
       link.addEventListener('click', (e) => {
-        const targetId = link.getAttribute('href');
-        if (targetId && targetId.startsWith('#')) {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
           e.preventDefault();
-          const targetEl = document.querySelector(targetId);
+          const targetEl = document.querySelector(href);
           if (targetEl) {
             targetEl.scrollIntoView({ behavior: 'smooth' });
             if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
@@ -59,45 +72,37 @@ export class UIController {
       });
     });
 
-    // Top CTA scroll button
+    // Hero buttons if present on page
     const heroDemoBtn = document.getElementById('hero-launch-demo-btn');
     if (heroDemoBtn) {
       heroDemoBtn.addEventListener('click', () => {
-        document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' });
+        const demoSec = document.getElementById('demo-section');
+        if (demoSec) {
+          demoSec.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.location.href = 'demo.html';
+        }
       });
     }
 
     const heroWorksBtn = document.getElementById('hero-how-it-works-btn');
     if (heroWorksBtn) {
       heroWorksBtn.addEventListener('click', () => {
-        document.getElementById('solution-section')?.scrollIntoView({ behavior: 'smooth' });
-      });
-    }
-
-    // Scroll spy for active navbar state
-    window.addEventListener('scroll', () => {
-      const sections = document.querySelectorAll('section[id]');
-      const scrollPos = window.scrollY + 120;
-
-      sections.forEach(sec => {
-        const top = sec.offsetTop;
-        const height = sec.offsetHeight;
-        const id = sec.getAttribute('id');
-        if (scrollPos >= top && scrollPos < top + height) {
-          document.querySelectorAll('.nav-link').forEach(l => {
-            if (l.getAttribute('href') === `#${id}`) {
-              l.classList.add('active');
-            } else {
-              l.classList.remove('active');
-            }
-          });
+        const solSec = document.getElementById('solution-section');
+        if (solSec) {
+          solSec.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.location.href = 'technology.html';
         }
       });
-    });
+    }
   }
 
   /* ================= GLOVE TELEMETRY VISUALIZATION ================= */
   bindGloveTelemetry() {
+    const hasGloveElements = document.getElementById('svg-hand-container') || document.getElementById('gauge-bar-thumb');
+    if (!hasGloveElements) return;
+
     // Subscribe to live simulated sensor engine
     gloveSim.subscribe((state) => {
       // Update 5 finger gauges in dashboard
@@ -109,11 +114,10 @@ export class UIController {
         if (bar) bar.style.width = `${val}%`;
         if (text) text.textContent = `${Math.round(val)}%`;
 
-        // Also update interactive SVG glove tracks if present
+        // Update interactive SVG glove tracks if present
         const svgTrack = document.getElementById(`svg-flex-${f}`);
         if (svgTrack) {
-          // Change SVG opacity / stroke color based on bend level
-          const hue = 190 + (val * 0.4); // From cyan to cobalt
+          const hue = 190 + (val * 0.4);
           svgTrack.style.stroke = `hsl(${hue}, 90%, ${55 - val * 0.15}%)`;
           svgTrack.style.strokeWidth = `${3 + (val / 20)}px`;
         }
@@ -146,9 +150,9 @@ export class UIController {
 
   /* ================= DEMO CONTROLS & PIPELINE ================= */
   bindDemoControls() {
-    // Populate Gesture Chips
     const chipsContainer = document.getElementById('gesture-chips-container');
     const gestureSelectDropdown = document.getElementById('demo-gesture-select');
+    const startBtn = document.getElementById('btn-start-recognition');
 
     if (chipsContainer) {
       chipsContainer.innerHTML = '';
@@ -165,6 +169,7 @@ export class UIController {
         });
         chipsContainer.appendChild(chip);
       });
+      this.highlightSelectedChip('help');
     }
 
     if (gestureSelectDropdown) {
@@ -182,11 +187,6 @@ export class UIController {
       });
     }
 
-    // Set initial active chip
-    this.highlightSelectedChip('help');
-
-    // Demo action buttons
-    const startBtn = document.getElementById('btn-start-recognition');
     const resetBtn = document.getElementById('btn-reset-demo');
     const skipToggle = document.getElementById('toggle-skip-anim');
     const lowConfBtn = document.getElementById('btn-simulate-lowconf');
@@ -238,7 +238,7 @@ export class UIController {
       });
     }
 
-    // Demo Mode Tabs (Single Gesture vs Multi-Sign Builder)
+    // Demo Mode Tabs (Single Gesture vs Multi-Sign Builder) if on unified demo
     const tabSingle = document.getElementById('tab-btn-single');
     const tabSentence = document.getElementById('tab-btn-sentence');
     const panelSingle = document.getElementById('demo-panel-single');
@@ -360,7 +360,6 @@ export class UIController {
     const playSentenceBtn = document.getElementById('btn-play-sentence-speech');
     const copySentenceBtn = document.getElementById('btn-copy-sentence-text');
 
-    // Available Sign Palette Chips
     if (signsContainer) {
       signsContainer.innerHTML = '';
       GESTURE_DATASET.forEach(g => {
@@ -375,7 +374,6 @@ export class UIController {
       });
     }
 
-    // Presets
     if (presetsContainer) {
       presetsContainer.innerHTML = '';
       SENTENCE_PRESETS.forEach((p, idx) => {
@@ -413,7 +411,6 @@ export class UIController {
       });
     }
 
-    // Sentence builder subscription
     sentenceBuilder.subscribe((state) => {
       const outputText = document.getElementById('sentence-synthesized-text');
       const sequenceEmptyNotice = document.getElementById('sentence-empty-notice');
@@ -453,6 +450,8 @@ export class UIController {
 
     if (singleCanvas) {
       speechEngine.bindWaveformCanvas(singleCanvas);
+    } else if (sentenceCanvas) {
+      speechEngine.bindWaveformCanvas(sentenceCanvas);
     }
 
     speechEngine.subscribe((state) => {
@@ -474,6 +473,8 @@ export class UIController {
   /* ================= ARCHITECTURE DIAGRAM INSPECTOR ================= */
   bindArchitectureDiagram() {
     const nodes = document.querySelectorAll('.arch-node');
+    if (!nodes.length) return;
+
     const detailTitle = document.getElementById('arch-detail-title');
     const detailDesc = document.getElementById('arch-detail-desc');
     const detailBadge = document.getElementById('arch-detail-badge');
@@ -537,7 +538,6 @@ export class UIController {
 
   /* ================= MODALS & HONESTY DISCLOSURES ================= */
   bindModals() {
-    // Hardware Connect info modal
     const connectBtns = document.querySelectorAll('.btn-connect-hardware');
     const hwModal = document.getElementById('hardware-connect-modal');
     const hwModalClose = document.getElementById('hw-modal-close');

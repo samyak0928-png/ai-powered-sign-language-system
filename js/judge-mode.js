@@ -7,7 +7,6 @@
  */
 
 import { demoController } from './demo-controller.js';
-import { sentenceBuilder } from './sentence-builder.js';
 
 export class JudgeModeController {
   constructor() {
@@ -34,35 +33,65 @@ export class JudgeModeController {
     if (triggerEmergency) {
       triggerEmergency.addEventListener('click', () => {
         this.close();
-        document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' });
-        demoController.selectGestureById('help');
-        setTimeout(() => demoController.startRecognition(), 400);
+        const demoSec = document.getElementById('demo-section');
+        if (demoSec) {
+          demoSec.scrollIntoView({ behavior: 'smooth' });
+          demoController.selectGestureById('help');
+          setTimeout(() => demoController.startRecognition(), 400);
+        } else {
+          window.location.href = 'demo.html?action=help';
+        }
       });
     }
 
     if (triggerWater) {
       triggerWater.addEventListener('click', () => {
         this.close();
-        document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' });
-        demoController.selectGestureById('water');
-        setTimeout(() => demoController.startRecognition(), 400);
+        const demoSec = document.getElementById('demo-section');
+        if (demoSec) {
+          demoSec.scrollIntoView({ behavior: 'smooth' });
+          demoController.selectGestureById('water');
+          setTimeout(() => demoController.startRecognition(), 400);
+        } else {
+          window.location.href = 'demo.html?action=water';
+        }
       });
     }
 
     if (triggerLowConf) {
       triggerLowConf.addEventListener('click', () => {
         this.close();
-        document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' });
-        demoController.selectGestureById('low_conf_test');
-        setTimeout(() => demoController.startRecognition(), 400);
+        const demoSec = document.getElementById('demo-section');
+        if (demoSec) {
+          demoSec.scrollIntoView({ behavior: 'smooth' });
+          demoController.selectGestureById('low_conf_test');
+          setTimeout(() => demoController.startRecognition(), 400);
+        } else {
+          window.location.href = 'demo.html?action=low_conf_test';
+        }
       });
     }
 
     if (triggerDemoScroll) {
       triggerDemoScroll.addEventListener('click', () => {
         this.close();
-        document.getElementById('demo-section')?.scrollIntoView({ behavior: 'smooth' });
+        const demoSec = document.getElementById('demo-section');
+        if (demoSec) {
+          demoSec.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.location.href = 'demo.html';
+        }
       });
+    }
+
+    // Auto-trigger from URL parameters if arriving on demo.html
+    const params = new URLSearchParams(window.location.search);
+    const action = params.get('action');
+    if (action && document.getElementById('demo-section')) {
+      setTimeout(() => {
+        demoController.selectGestureById(action);
+        setTimeout(() => demoController.startRecognition(), 500);
+      }, 300);
     }
   }
 
